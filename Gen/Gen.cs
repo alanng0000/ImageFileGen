@@ -154,7 +154,9 @@ class Gen : Object
 
 
 
-        global::System.Console.Write("Gen GetImageData width: " + bitmap.Width + ", " + "height: " + bitmap.Height + ", " + "stride: " + bitmapData.Stride + "\n");
+        global::System.Console.Write("Gen GetImageData width: " + bitmap.Width + ", " + "height: " + bitmap.Height + ", " + "stride: " + bitmapData.Stride + 
+            ", " + "pixel format: " + bitmapData.PixelFormat.ToString() + "\n"
+        );
 
 
 
