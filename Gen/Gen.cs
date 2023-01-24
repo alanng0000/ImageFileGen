@@ -166,6 +166,106 @@ class Gen : Object
 
 
 
+    private bool Copy(IntPtr ptr, byte[] data, int index, int width, int height, int stride)
+    {
+        int pixelByteCount;
+        
+        pixelByteCount = this.PixelByteCount;
+
+
+
+
+        unsafe
+        {
+            byte* pp;
+
+            pp = (byte*)ptr;
+
+
+
+            fixed (byte* po = data)
+            {
+                byte* pu;
+
+                pu = po + index;
+
+
+
+                int i;
+
+                i = 0;
+
+                while (i < height)
+                {
+                    int j;
+
+                    j = 0;
+
+
+                    while (j < width)
+                    {
+                        int a;
+
+                        a = stride * i + j * pixelByteCount;
+
+                        
+                        int b;
+
+                        b = (width * i + j) * pixelByteCount;
+
+
+
+                        byte* pa;
+
+                        pa = pp + a;
+
+
+
+                        byte* pb;
+
+                        pb = pu + b;
+
+
+
+                        uint* na;
+
+                        na = (uint*)pa;
+
+
+                        uint* nb;
+
+                        nb = (uint*)pb;
+
+
+
+                        *nb = *na;
+
+
+
+                        j = j + 1;
+                    }
+
+
+
+                    i = i + 1;
+                }
+            }
+        }
+
+
+
+        return true;
+    }
+
+
+
+
+    private int PixelByteCount { get { return 4; } }
+
+
+
+
+
     private bool WriteFile()
     {
         File.WriteAllBytes("image.img", this.ImageData);
