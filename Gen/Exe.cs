@@ -3,31 +3,9 @@ namespace Gen;
 
 
 
-class Exe : ExeExe
+class Exe : Object
 {
-    static int Main()
-    {
-        Exe exe;
-
-        exe = new Exe();
-
-        exe.Init();
-
-
-
-        int o;
-
-        o = exe.Execute();
-
-
-        return o;
-    }
-    
-
-
-
-
-    protected override int ExecuteWork()
+    static int Main(string[] arg)
     {
         Gen gen;
 
@@ -36,6 +14,9 @@ class Exe : ExeExe
 
 
         gen.Init();
+
+
+        gen.Arg = arg;
 
 
 

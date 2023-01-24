@@ -5,6 +5,10 @@ namespace Gen;
 
 class Gen : Object
 {
+    public string[] Arg { get; set; }
+
+
+
     public int Execute()
     {
         bool b;
@@ -99,10 +103,11 @@ class Gen : Object
 
         int pixelDataSize;
         
-        pixelDataSize = bitmapData.Stride * bitmap.Height;
+        pixelDataSize = bitmap.Width * bitmap.Height * this.PixelByteCount;
+
+
 
         
-
 
         int size;
 
@@ -145,6 +150,11 @@ class Gen : Object
 
         this.Int(height);
 
+
+
+
+
+        global::System.Console.Write("Gen GetImageData width: " + bitmap.Width + ", " + "height: " + bitmap.Height + ", " + "stride: " + bitmapData.Stride + "\n");
 
 
 
@@ -444,18 +454,7 @@ class Gen : Object
 
     private bool GetFileName()
     {
-        string s;
-
-        s = Console.ReadLine();
-
-
-        if (s == null)
-        {
-            return false;
-        }
-
-
-        this.FileName = s;
+        this.FileName = this.Arg[0];
 
 
         return true;
