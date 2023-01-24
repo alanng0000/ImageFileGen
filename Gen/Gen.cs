@@ -28,6 +28,13 @@ class Gen : Object
 
 
 
+        this.WriteFile();
+
+
+
+
+        this.Bitmap.Dispose();
+
 
 
 
@@ -142,7 +149,7 @@ class Gen : Object
 
 
 
-        Marshal.Copy(ptr, imageData, headSize, pixelDataSize);
+        Marshal.Copy(ptr, this.ImageData, headSize, pixelDataSize);
 
 
 
@@ -156,6 +163,17 @@ class Gen : Object
         return true;
     }
 
+
+
+
+    private bool WriteFile()
+    {
+        File.WriteAllBytes("image.img", this.ImageData);
+
+
+
+        return true;
+    }
 
 
 

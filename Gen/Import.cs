@@ -4,6 +4,7 @@ global using Convert = System.Infra.Convert;
 global using ExeExe = System.Exe.Exe;
 global using Console = System.Console;
 global using IntPtr = System.IntPtr;
+global using File = System.IO.File;
 global using Bitmap = System.Drawing.Bitmap;
 global using Rectangle = System.Drawing.Rectangle;
 global using Point = System.Drawing.Point;
