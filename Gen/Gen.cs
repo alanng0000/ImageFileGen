@@ -20,6 +20,12 @@ class Gen : Object
 
 
 
+        this.CreateBitmap();
+
+
+
+        this.GetImageData();
+
 
 
 
@@ -31,28 +37,126 @@ class Gen : Object
 
 
 
-    private byte[] GetPixelData()
+    private bool GetImageData()
     {
+        Bitmap bitmap;
+
+        bitmap = this.Bitmap;
+
+
+
         Rectangle rect;
 
-        rect = new Rectangle(Point.Empty, this.Bitmap.Size);
+        rect = new Rectangle(Point.Empty, bitmap.Size);
 
 
-        BitmapData data;
+
+        BitmapData bitmapData;
         
-        data = this.Bitmap.LockBits(
-            rect, ImageLockMode.ReadWrite, this.Bitmap.PixelFormat
-            );
+        bitmapData = bitmap.LockBits(rect, ImageLockMode.ReadOnly, bitmap.PixelFormat);
 
 
-var pixelSize = data.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3; // only works with 32 or 24 pixel-size bitmap!
-var padding = data.Stride - (data.Width * pixelSize);
-var bytes = new byte[data.Height * data.Stride];
 
-// copy the bytes from bitmap to array
-Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
+        IntPtr ptr;
+        
+        ptr = bitmapData.Scan0;
 
+
+
+        Constant constant;
+
+        constant = Constant.This;
+
+
+
+        Convert convert;
+
+        convert = Convert.This;
+
+
+
+
+        ulong k;
+
+        k = constant.IntByteCount * 2;
+
+
+
+
+        int headSize;
+
+        headSize = convert.SInt32(k);
+
+
+
+
+        int pixelDataSize;
+        
+        pixelDataSize = bitmapData.Stride * bitmap.Height;
+
+        
+
+
+        int size;
+
+        size = headSize + pixelDataSize;
+
+
+
+        byte[] imageData;
+        
+        imageData = new byte[size];
+
+
+
+
+        this.ImageData = imageData;
+
+
+
+        
+        this.Index = 0;
+
+
+
+
+
+        ulong width;
+
+        width = convert.ULong(bitmap.Width);
+
+
+
+        ulong height;
+
+        height = convert.ULong(bitmap.Height);
+
+
+
+        this.Int(width);
+
+
+        this.Int(height);
+
+
+
+
+
+        Marshal.Copy(ptr, imageData, headSize, pixelDataSize);
+
+
+
+        
+        bitmap.UnlockBits(bitmapData);
+        
+
+
+
+
+        return true;
     }
+
+
 
 
 
@@ -69,12 +173,154 @@ Marshal.Copy(data.Scan0, bytes, 0, bytes.Length);
 
 
 
+
+    private byte[] ImageData { get; set; }
+
+
+
     private Bitmap Bitmap { get; set; }
 
 
 
 
+
+    private bool Int(ulong o)
+    {
+        Constant constant;
+
+        constant = Constant.This;
+
+
+
+        Convert convert;
+
+        convert = Convert.This;
+
+
+
+
+        ulong uu;
+
+        uu = constant.ByteBitCount;
+
+
+
+        ulong shiftCount;
+
+
+
+        int ou;
+
+
+
+
+        byte ob;
+
+
+
+        ulong k;
+        
+
+
+        ulong count;
+
+        count = constant.IntByteCount;
+
+
+
+        ulong i;
+
+        i = 0;
+
+
+        while (i < count)
+        {
+            shiftCount = i * uu;
+
+
+            ou = convert.SInt32(shiftCount);
+
+
+            k = o >> ou;
+
+
+
+            ob = convert.Byte(k);
+
+
+
+
+            this.Byte(ob);
+            
+
+
+
+            i = i + 1;
+        }
+
+
+
+        return true;
+    }
+
+
+
+
+
+
+
+    private bool Byte(byte ob)
+    {
+        byte[] o;
+
+
+        o = this.ImageData;
+
+
+        
+
+        ulong k;
+
+
+        k = this.Index;
+
+
+
+
+        o[k] = ob;
+
+
+
+
+
+        k = k + 1;
+
+
+
+        this.Index = k;
+
+
+
+
+        return true;
+    }
+
+
+
+
+
+
+
+    private ulong Index { get; set; }
+
+
+
+
+
+
     private string FileName { get; set; }
+
+
 
 
 
