@@ -149,7 +149,7 @@ class Gen : Object
 
 
 
-        Marshal.Copy(ptr, this.ImageData, headSize, pixelDataSize);
+        this.Copy(ptr, this.ImageData, headSize, bitmap.Width, bitmap.Height, bitmapData.Stride);
 
 
 
