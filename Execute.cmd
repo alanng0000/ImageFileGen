@@ -2,7 +2,7 @@
 
 
 
-cd Gen/bin/Debug/net6.0-windows
+cd Gen/bin/Debug/net7.0-windows
 
 
 dotnet Gen.dll
