@@ -5,7 +5,7 @@ namespace Gen;
 
 class Exe : Object
 {
-    static int Main(string[] arg)
+    static int Main()
     {
         Gen gen;
 
@@ -14,9 +14,6 @@ class Exe : Object
 
 
         gen.Init();
-
-
-        gen.Arg = arg;
 
 
 

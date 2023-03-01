@@ -12,8 +12,4 @@
         <ProjectReference Include="../../System/System.Exe/System.Exe.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Content Include="sun_and_cloud.jpg" CopyToOutputDirectory="PreserveNewest" />
-    </ItemGroup>
-
 </Project>

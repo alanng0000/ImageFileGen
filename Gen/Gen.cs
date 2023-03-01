@@ -5,21 +5,26 @@ namespace Gen;
 
 class Gen : Object
 {
-    public string[] Arg { get; set; }
+    public override bool Init()
+    {
+        base.Init();
+
+
+
+        this.FileName = "input";
+
+
+
+        return true;
+    }
+
+
 
 
 
     public int Execute()
     {
-        bool b;
-
-        b = this.GetFileName();
-
-
-        if (!b)
-        {
-            return 1;
-        }
+        this.GetStream();
 
 
 
@@ -28,7 +33,9 @@ class Gen : Object
 
 
 
+
         this.GetImageData();
+
 
 
 
@@ -44,6 +51,26 @@ class Gen : Object
 
         return 0;
     }
+
+
+
+
+
+
+    private bool GetStream()
+    {
+        Stream stream;
+
+        stream = new FileStream(this.FileName, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
+
+
+        this.Stream = stream;
+
+
+        return true;
+    }
+
+
 
 
 
@@ -280,7 +307,7 @@ class Gen : Object
 
     private bool WriteFile()
     {
-        File.WriteAllBytes("image.img", this.ImageData);
+        File.WriteAllBytes("output.img", this.ImageData);
 
 
 
@@ -293,7 +320,7 @@ class Gen : Object
 
     private bool CreateBitmap()
     {
-        this.Bitmap = new Bitmap(this.FileName);
+        this.Bitmap = new Bitmap(this.Stream);
 
 
 
@@ -439,6 +466,11 @@ class Gen : Object
 
 
 
+    private Stream Stream { get; set; }
+
+
+
+
 
 
     private ulong Index { get; set; }
@@ -449,16 +481,4 @@ class Gen : Object
 
 
     private string FileName { get; set; }
-
-
-
-
-
-    private bool GetFileName()
-    {
-        this.FileName = this.Arg[0];
-
-
-        return true;
-    }
 }

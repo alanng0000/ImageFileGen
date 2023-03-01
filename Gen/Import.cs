@@ -1,13 +1,12 @@
 global using Object = System.Infra.Object;
 global using Constant = System.Infra.Constant;
 global using Convert = System.Infra.Convert;
-global using ExeExe = System.Exe.Exe;
-global using Console = System.Console;
 global using IntPtr = System.IntPtr;
 global using File = System.IO.File;
+global using FileStream = System.IO.FileStream;
+global using Stream = System.IO.Stream;
 global using Bitmap = System.Drawing.Bitmap;
 global using Rectangle = System.Drawing.Rectangle;
 global using Point = System.Drawing.Point;
 global using BitmapData = System.Drawing.Imaging.BitmapData;
 global using ImageLockMode = System.Drawing.Imaging.ImageLockMode;
-global using Marshal = System.Runtime.InteropServices.Marshal;
